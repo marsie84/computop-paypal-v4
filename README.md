@@ -9,7 +9,7 @@ Everything runs on PHP + PHP-CURL - will try and migrate to a standalone Node.js
 Required changes to get things up and running:
 
 ctpayment.php --> Supply your Computop Credentials
-
+ctpayment.php --> Add your base URL for success and failure redirect
 
 Difference from a regular implementation:
 Upon being redirected to the https://www.computop-paygate.com/paypal.aspx page, the buyer would see a 302 redirect to PayPal.
