@@ -19,7 +19,6 @@ $URLSuccess = $BASE_URL . "success.php";
 $URLFailure = $BASE_URL . "failure.php";
 $URLNotify = $BASE_URL . "notify.php";
 $UserData = "user data";
-
 $Response = "encrypt";
 $Capture = "AUTO";
 
@@ -79,10 +78,6 @@ $curl_info = curl_getinfo($ch);
 $parts = parse_url($curl_info["redirect_url"]);
 parse_str($parts['query'], $query);
 
-//echo $query['token'];
-
 echo '{"paymentToken":"' . $query['token'] . '"}';
-
-//header('Location: ' . $curl_info["redirect_url"]) ;
 
 ?>

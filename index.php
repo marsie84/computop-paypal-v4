@@ -6,7 +6,7 @@
       <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-      <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+      <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
 
   </head>
   <body>
@@ -111,7 +111,7 @@
             $('#credit-card-container').show();
           }
         });
-
+        // console.log(paypal);
         function createButton(ctToken){
 
           $.ajax({
@@ -162,11 +162,11 @@
 
                     // Set up the data you need to pass to your server
 
-                    console.log('We should now see an xhr request to the returnURL');
+                    console.log('We should now access the returnUrl. As the return URL is likely the computop domain, we cant just launch an XHR Request. We could however call a proxy on the same domain, which then launches the request to computop');
                     console.log(EXECUTE_URL);
 
                     var printData = JSON.stringify(data);
-                    $('#resultDiv').append('<div class="alert alert-success"><b>Successfully authorized payment.</b><br>Next step is to redirect to the Computop returnURL, which will execute the payment. Return Data Object: <br>' + printData + '<br></div>');
+                    $('#resultDiv').append('<div class="alert alert-success"><b>Successfully authorized payment.</b><br>Next step is to redirect to the Computop returnURL, which will execute the payment. Return Data Object: <br>' + printData + '<br><a class="btn btn-primary btn-block" href="' + data.returnUrl +  '" role="button">Execute Payment</a></div>');
 
                     //window.location.href = EXECUTE_URL;
 
@@ -183,12 +183,17 @@
 
                   //window.location.href = CANCEL_URL;
 
+                },
+                onError: function(err) {
+
+                  var printData = JSON.stringify(err);
+                  $('#resultDiv').append('<div class="alert alert-danger"><b>An error occured.</b><br>Error Data Object:<br>' + printData + '<br></div>');
+
                 }
 
             }, '#paypal-button-container');
           }
         });
-
         }
 
     </script>
